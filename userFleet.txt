@@ -1,0 +1,5 @@
+C A1 C1
+A B3 F3
+B F4 F7
+S A10 C10
+D H1 I1
