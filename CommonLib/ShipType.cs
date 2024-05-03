@@ -1,4 +1,6 @@
 
+namespace CommonLib;
+
 internal enum ShipType
 {
     AIRCRAFT_CARRIER,

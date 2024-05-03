@@ -1,4 +1,6 @@
 
+namespace CommonLib;
+
 internal abstract class Ship
 {
     private readonly int _size;

@@ -1,4 +1,6 @@
 ﻿
+using CommonLib;
+
 internal static class Program
 {
     private static void Main(string[] args)
@@ -77,7 +79,7 @@ internal static class Program
             }
             else
             {
-                var (move, msg) = game.MakeComputerMove();
+                (string move, string? msg) = game.MakeComputerMove();
 
                 Console.WriteLine($"Computer's turn! It chose move {move}.");
 

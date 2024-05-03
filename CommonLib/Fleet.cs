@@ -1,4 +1,6 @@
 
+namespace CommonLib;
+
 internal class Fleet
 {
     private readonly AircraftCarrier _aircraftCarrier = new();

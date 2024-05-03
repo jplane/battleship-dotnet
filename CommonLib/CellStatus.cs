@@ -1,4 +1,6 @@
 
+namespace CommonLib;
+
 internal enum CellStatus
 {
     AIRCRAFT_CARRIER,

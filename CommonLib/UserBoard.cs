@@ -1,4 +1,6 @@
 
+namespace CommonLib;
+
 internal class UserBoard : Board
 {
     private readonly List<Move> _availableMoves = Move.AllMoves.ToList();

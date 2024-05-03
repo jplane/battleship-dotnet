@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleship", "Battleship\Battleship.csproj", "{3AD87495-1AB1-4240-B59A-A313BD4CB952}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{3AD87495-1AB1-4240-B59A-A313BD4CB952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{DE2196E5-07C8-4396-8D69-FC5F81A1F79D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\CommonLib.csproj", "{B1F9D3B8-6163-4641-84D4-A0FB2B1027CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,13 @@ Global
 		{3AD87495-1AB1-4240-B59A-A313BD4CB952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AD87495-1AB1-4240-B59A-A313BD4CB952}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AD87495-1AB1-4240-B59A-A313BD4CB952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE2196E5-07C8-4396-8D69-FC5F81A1F79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2196E5-07C8-4396-8D69-FC5F81A1F79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2196E5-07C8-4396-8D69-FC5F81A1F79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2196E5-07C8-4396-8D69-FC5F81A1F79D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F9D3B8-6163-4641-84D4-A0FB2B1027CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F9D3B8-6163-4641-84D4-A0FB2B1027CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F9D3B8-6163-4641-84D4-A0FB2B1027CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F9D3B8-6163-4641-84D4-A0FB2B1027CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

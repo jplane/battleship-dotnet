@@ -1,4 +1,6 @@
 
+namespace CommonLib;
+
 internal class ComputerBoard : Board
 {
     public ComputerBoard(string filename) : base(filename)

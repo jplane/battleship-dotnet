@@ -1,7 +1,9 @@
 
 using System.Text;
 
-internal class Game
+namespace CommonLib;
+
+public class Game
 {
     private readonly ComputerBoard _computerBoard;
     private readonly UserBoard _userBoard;

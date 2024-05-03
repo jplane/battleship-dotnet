@@ -1,7 +1,9 @@
 
-using BoardRow=System.Collections.Generic.List<CellStatus>;
-using BoardLayout=System.Collections.Generic.List<System.Collections.Generic.List<CellStatus>>;
+using BoardRow=System.Collections.Generic.List<CommonLib.CellStatus>;
+using BoardLayout=System.Collections.Generic.List<System.Collections.Generic.List<CommonLib.CellStatus>>;
 using System.Text;
+
+namespace CommonLib;
 
 internal abstract class Board
 {

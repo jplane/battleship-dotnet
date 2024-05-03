@@ -1,5 +1,7 @@
 
-internal class Move
+namespace CommonLib;
+
+public class Move
 {
     private static readonly string[] _rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
