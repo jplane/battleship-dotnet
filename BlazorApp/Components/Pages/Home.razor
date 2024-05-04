@@ -1,7 +1,152 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+@using CommonLib
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Battleship!</PageTitle>
 
-<h1>Hello, world!</h1>
+<pre style="font-size: 18px">@_message1</pre>
 
-Welcome to your new app.
+<pre style="font-size: 18px">@_message2</pre>
+
+@switch (_state)
+{
+    case GameState.Start:
+        <InputRadioGroup @bind-Value="_choice">
+            <div style="margin-bottom: 10px;">
+                <label for="rdoHeads">Heads</label>
+                <InputRadio id="rdoHeads" Value="@("heads")" />
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="rdoTails">Tails</label>
+                <InputRadio id="rdoTails" Value="@("tails")" />
+            </div>
+        </InputRadioGroup>
+        <div style="margin-bottom: 10px;">
+            <button class="btn btn-primary" @onclick="OnCoinFlip">Flip Coin</button>
+        </div>
+        break;
+
+    case GameState.CoinFlipped:
+        <div style="margin-bottom: 10px;">
+            <button class="btn btn-primary" @onclick="OnNextMove">Start Game</button>
+        </div>
+        break;
+
+    case GameState.GameStarted:
+        if (_userTurn)
+        {
+            <div style="margin-bottom: 10px;">
+                <label for="txtUserMove">Your move:</label>
+                <InputText id="txtUserMove" @bind-Value="_userMove" />
+            </div>
+        }
+        <div style="margin-bottom: 10px;">
+            <button class="btn btn-primary" @onclick="OnNextMove">Proceed</button>
+        </div>
+        break;
+
+    case GameState.End:
+        break;
+}
+
+<div style="margin-bottom: 10px;">
+    <button class="btn btn-secondary" @onclick="OnRestart">Restart Game</button>
+</div>
+
+@code {
+
+    private const string START_MESSAGE1 = @"
+Welcome to Battleship! You will be playing against the computer.
+The first player to sink all of the other player's ships wins. Good luck!";
+    private const string START_MESSAGE2 = "Select heads or tails to see who goes first.";
+
+    private Game _game = new Game();
+    private GameState _state = GameState.Start;
+    private string _choice = "heads";
+    private bool _userTurn = true;
+    private string? _message1;
+    private string? _message2;
+    private string? _userMove;
+
+    protected override void OnInitialized()
+    {
+        _message1 = START_MESSAGE1;
+        _message2 = START_MESSAGE2;
+    }
+
+    private void OnNextMove()
+    {
+        _state = GameState.GameStarted;
+
+        if (_userTurn)
+        {
+            if (_userMove == null)
+            {
+                _message2 = "Your turn! Enter a move.";
+            }
+            else
+            {
+                _message2 = _game.MakePlayerMove(_userMove);
+
+                if (_message2 == null)
+                {
+                    _message2 = "Invalid move. Try again.";
+                }
+                else
+                {
+                    _userTurn = false;
+                    _userMove = null;
+                }
+            }
+        }
+        else
+        {
+            (string move, string? msg) = _game.MakeComputerMove();
+
+            _message2 = $"The computer chose move {move}. {msg}";
+
+            _userTurn = true;
+        }
+
+        if (_game.IsUserDefeated || _game.IsComputerDefeated)
+        {
+            var endMsg = _game.IsUserDefeated ? "You lost! The computer won." : "You won! The computer lost.";
+            _message2 = $"{_message2} {endMsg}";
+            _state = GameState.End;
+        }
+
+        _message1 = _game.ToString();
+    }
+
+    private void OnCoinFlip()
+    {
+        var flip = new Random(Environment.TickCount).Next(1, 3);
+
+        _userTurn = (_choice == "heads" && flip == 1) || (_choice == "tails" && flip == 2);
+
+        _message1 = _userTurn ?
+                        "You won the coin toss! You will go first." :
+                        "You lost the coin toss! The computer will go first.";
+
+        _message2 = null;
+
+        _state = GameState.CoinFlipped;
+    }
+
+    private void OnRestart()
+    {
+        _message1 = START_MESSAGE1;
+        _message2 = START_MESSAGE2;
+        _game = new Game();
+        _state = GameState.Start;
+        _userTurn = true;
+    }
+
+    public enum GameState
+    {
+        Start,
+        CoinFlipped,
+        GameStarted,
+        End
+    }
+}

@@ -16,7 +16,7 @@ internal static class Program
 
         while (choice == null)
         {
-            Console.WriteLine("Let's flip a coin to see who goes first. Enter 1 for heads or 2 for tails:");
+            Console.WriteLine("Let's flip a coin to see who goes first. Choose heads (1) or tails (2):");
 
             var input = Console.ReadLine();
 
