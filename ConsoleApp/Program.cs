@@ -5,7 +5,9 @@ internal static class Program
 {
     private static void Main(string[] args)
     {
-        var game = new Game();
+        var computerLoader = new FileLayoutLoader("../compFleet.txt");
+        var userLoader = new FileLayoutLoader("../userFleet.txt");
+        var game = new Game(computerLoader, userLoader);
 
         Console.WriteLine("Welcome to Battleship!");
         Console.WriteLine("You will be playing against the computer.");

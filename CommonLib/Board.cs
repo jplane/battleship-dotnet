@@ -9,7 +9,7 @@ internal abstract class Board
 {
     private const int SIZE = 10;
     
-    protected Board(string filename)
+    protected Board(ILayoutLoader loader)
     {
         this.Fleet = new Fleet();
 
@@ -18,7 +18,7 @@ internal abstract class Board
         this.Layout.ForEach(row => row.AddRange(Enumerable.Range(0, SIZE)
                                                           .Select(_ => CellStatus.NOTHING)));
 
-        this.LoadLayout(filename);
+        this.LoadLayout(loader);
     }
 
     public BoardLayout Layout { get; }
@@ -178,40 +178,22 @@ internal abstract class Board
         }
     }
 
-    private void LoadLayout(string filename)
+    private void LoadLayout(ILayoutLoader loader)
     {
-        foreach(var line in File.ReadAllLines(filename))
+        foreach(var item in loader.GetLayout())
         {
-            var parts = line.Split(' ');
-            
-            var status = parts[0] switch
+            if (item.StartRow == item.EndRow)
             {
-                "A" => CellStatus.AIRCRAFT_CARRIER,
-                "B" => CellStatus.BATTLESHIP,
-                "C" => CellStatus.CRUISER,
-                "S" => CellStatus.SUB,
-                "D" => CellStatus.DESTROYER,
-                _ => CellStatus.NOTHING
-            };
-
-            var startrow = Move.GetRowIndex(parts[1][..1]);
-            var startcol = int.Parse(parts[1][1..]) - 1;
-
-            var endrow = Move.GetRowIndex(parts[2][..1]);
-            var endcol = int.Parse(parts[2][1..]) - 1;
-
-            if (startrow == endrow)
-            {
-                for (var col = startcol; col <= endcol; col++)
+                for (var col = item.StartColumn; col <= item.EndColumn; col++)
                 {
-                    this.Layout[startrow][col] = status;
+                    this.Layout[item.StartRow][col] = item.Status;
                 }
             }
-            else if (startcol == endcol)
+            else if (item.StartColumn == item.EndColumn)
             {
-                for (var row = startrow; row <= endrow; row++)
+                for (var row = item.StartRow; row <= item.EndRow; row++)
                 {
-                    this.Layout[row][startcol] = status;
+                    this.Layout[row][item.StartColumn] = item.Status;
                 }
             }
         }

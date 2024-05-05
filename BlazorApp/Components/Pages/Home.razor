@@ -60,7 +60,9 @@ Welcome to Battleship! You will be playing against the computer.
 The first player to sink all of the other player's ships wins. Good luck!";
     private const string START_MESSAGE2 = "Select heads or tails to see who goes first.";
 
-    private Game _game = new Game();
+    private Game _game =
+                new Game(new EnvironmentVariableLayoutLoader("BATTLESHIP_COMP_LAYOUT"),
+                new EnvironmentVariableLayoutLoader("BATTLESHIP_USER_LAYOUT"));
     private GameState _state = GameState.Start;
     private string _choice = "heads";
     private bool _userTurn = true;
@@ -137,7 +139,8 @@ The first player to sink all of the other player's ships wins. Good luck!";
     {
         _message1 = START_MESSAGE1;
         _message2 = START_MESSAGE2;
-        _game = new Game();
+        _game = new Game(new EnvironmentVariableLayoutLoader("BATTLESHIP_COMP_LAYOUT"),
+                         new EnvironmentVariableLayoutLoader("BATTLESHIP_USER_LAYOUT"));
         _state = GameState.Start;
         _userTurn = true;
     }

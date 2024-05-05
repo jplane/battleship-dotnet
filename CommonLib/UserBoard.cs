@@ -6,7 +6,7 @@ internal class UserBoard : Board
     private readonly List<Move> _availableMoves = Move.AllMoves.ToList();
     private Random _random = new(Environment.TickCount);
 
-    public UserBoard(string filename) : base(filename)
+    public UserBoard(ILayoutLoader loader) : base(loader)
     {
     }
 

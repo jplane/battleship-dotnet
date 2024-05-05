@@ -1,7 +1,7 @@
 
 namespace CommonLib;
 
-internal enum CellStatus
+public enum CellStatus
 {
     AIRCRAFT_CARRIER,
     AIRCRAFT_CARRIER_HIT,

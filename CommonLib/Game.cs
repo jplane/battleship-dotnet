@@ -8,10 +8,10 @@ public class Game
     private readonly ComputerBoard _computerBoard;
     private readonly UserBoard _userBoard;
 
-    public Game()
+    public Game(ILayoutLoader computerLoader, ILayoutLoader userLoader)
     {
-        _computerBoard = new ComputerBoard("../compFleet.txt");
-        _userBoard = new UserBoard("../userFleet.txt");
+        _computerBoard = new ComputerBoard(computerLoader);
+        _userBoard = new UserBoard(userLoader);
     }
 
     public (string, string?) MakeComputerMove()
