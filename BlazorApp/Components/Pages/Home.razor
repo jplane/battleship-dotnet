@@ -4,9 +4,9 @@
 
 <PageTitle>Battleship!</PageTitle>
 
-<pre style="font-size: 18px">@_message1</pre>
+<pre style="font-size: 16px">@_boards</pre>
 
-<pre style="font-size: 18px">@_message2</pre>
+<p>@_message</p>
 
 @switch (_state)
 {
@@ -55,10 +55,10 @@
 
 @code {
 
-    private const string START_MESSAGE1 = @"
-Welcome to Battleship! You will be playing against the computer.
-The first player to sink all of the other player's ships wins. Good luck!";
-    private const string START_MESSAGE2 = "Select heads or tails to see who goes first.";
+    private const string START_MESSAGE = @"
+                Welcome to Battleship! You will be playing against the computer.
+                The first player to sink all of the other player's ships wins.
+                Good luck! Select heads or tails to see who goes first.";
 
     private Game _game =
                 new Game(new EnvironmentVariableLayoutLoader("BATTLESHIP_COMP_LAYOUT"),
@@ -66,14 +66,13 @@ The first player to sink all of the other player's ships wins. Good luck!";
     private GameState _state = GameState.Start;
     private string _choice = "heads";
     private bool _userTurn = true;
-    private string? _message1;
-    private string? _message2;
+    private string? _message;
+    private string? _boards;
     private string? _userMove;
 
     protected override void OnInitialized()
     {
-        _message1 = START_MESSAGE1;
-        _message2 = START_MESSAGE2;
+        _message = START_MESSAGE;
     }
 
     private void OnNextMove()
@@ -84,15 +83,15 @@ The first player to sink all of the other player's ships wins. Good luck!";
         {
             if (_userMove == null)
             {
-                _message2 = "Your turn! Enter a move.";
+                _message = "Your turn! Enter a move.";
             }
             else
             {
-                _message2 = _game.MakePlayerMove(_userMove);
+                _message = _game.MakePlayerMove(_userMove);
 
-                if (_message2 == null)
+                if (_message == null)
                 {
-                    _message2 = "Invalid move. Try again.";
+                    _message = "Invalid move. Try again.";
                 }
                 else
                 {
@@ -105,7 +104,7 @@ The first player to sink all of the other player's ships wins. Good luck!";
         {
             (string move, string? msg) = _game.MakeComputerMove();
 
-            _message2 = $"The computer chose move {move}. {msg}";
+            _message = $"The computer chose move {move}. {msg}";
 
             _userTurn = true;
         }
@@ -113,11 +112,11 @@ The first player to sink all of the other player's ships wins. Good luck!";
         if (_game.IsUserDefeated || _game.IsComputerDefeated)
         {
             var endMsg = _game.IsUserDefeated ? "You lost! The computer won." : "You won! The computer lost.";
-            _message2 = $"{_message2} {endMsg}";
+            _message = $"{_message} {endMsg}";
             _state = GameState.End;
         }
 
-        _message1 = _game.ToString();
+        _boards = _game.ToString();
     }
 
     private void OnCoinFlip()
@@ -126,19 +125,17 @@ The first player to sink all of the other player's ships wins. Good luck!";
 
         _userTurn = (_choice == "heads" && flip == 1) || (_choice == "tails" && flip == 2);
 
-        _message1 = _userTurn ?
+        _message = _userTurn ?
                         "You won the coin toss! You will go first." :
                         "You lost the coin toss! The computer will go first.";
-
-        _message2 = null;
 
         _state = GameState.CoinFlipped;
     }
 
     private void OnRestart()
     {
-        _message1 = START_MESSAGE1;
-        _message2 = START_MESSAGE2;
+        _message = START_MESSAGE;
+        _boards = null;
         _game = new Game(new EnvironmentVariableLayoutLoader("BATTLESHIP_COMP_LAYOUT"),
                          new EnvironmentVariableLayoutLoader("BATTLESHIP_USER_LAYOUT"));
         _state = GameState.Start;

@@ -5,18 +5,21 @@ public class Move
 {
     private static readonly string[] _rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
-    public static int GetRowIndex(string row) => Array.IndexOf(_rows, row);
+    public static int GetRowIndex(string row)
+    {
+        var idx = Array.IndexOf(_rows, row);
+
+        if (idx == -1)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        return idx;
+    }
 
     public static string GetRowName(int row)
     {
-        try
-        {
-            return _rows[row - 1];
-        }
-        catch (IndexOutOfRangeException)
-        {
-            return string.Empty;
-        }
+        return _rows[row - 1];
     }
 
     public static Move[] AllMoves

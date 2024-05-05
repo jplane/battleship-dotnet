@@ -21,7 +21,14 @@ public class Game
 
     public string? MakePlayerMove(string move)
     {
-        return _computerBoard.MakePlayerMove(new Move(move));
+        try
+        {
+            return _computerBoard.MakePlayerMove(new Move(move));
+        }
+        catch (IndexOutOfRangeException)
+        {
+            return null;
+        }
     }
 
     public bool IsUserDefeated => _userBoard.IsGameOver();
